@@ -1,22 +1,22 @@
+import { getFilteredTrips } from "./components/filter/helpers/getfilteredtrips";
 import "./style.css";
 import { tripsDb } from "../../database/trips";
 import { TripCard } from "./components/trip/trip-card";
-import React from "react";
 import { useState } from "react";
 import { Filter } from "./components/filter/filter";
 import { DEFAULT_FILTER_VALUES } from "./common/constants";
+import { filterValuesType } from "./common/constants";
 
 const Main = () => {
-  const [filterValues, setFilterValues] = useState(DEFAULT_FILTER_VALUES);
+  const [filterValues, setFilterValues] = useState<filterValuesType>(
+    DEFAULT_FILTER_VALUES
+  );
 
-  const handlerFilterChange = (values: {
-    duration?: string;
-    level?: string;
-    search?: string;
-  }) => {
+  const handlerFilterChange = (values: filterValuesType) => {
     setFilterValues(values);
-    console.log(values);
   };
+
+  const filteredTrips = getFilteredTrips(tripsDb, filterValues);
 
   return (
     <main>
@@ -25,7 +25,7 @@ const Main = () => {
       <section className="trips">
         <h2 className="visually-hidden">Trips List</h2>
         <ul className="trip-list">
-          {tripsDb.map((trip) => (
+          {filteredTrips.map((trip) => (
             <TripCard
               id={trip.id}
               level={trip.level}

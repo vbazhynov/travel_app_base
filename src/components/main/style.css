@@ -83,6 +83,10 @@
   box-shadow: var(--shadow);
 }
 
+.trip-card img {
+  height: 100%;
+}
+
 .trip-card__content {
   display: flex;
   flex-direction: column;

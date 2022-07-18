@@ -1,12 +1,9 @@
 import React from "react";
+import { filterValuesType } from "../../common/constants";
 
 type FilterTypes = {
   onChange: Function;
-  values: {
-    duration?: string;
-    level?: string;
-    search?: string;
-  };
+  values: filterValuesType;
 };
 
 const Filter = ({ onChange, values }: FilterTypes) => {
@@ -14,7 +11,6 @@ const Filter = ({ onChange, values }: FilterTypes) => {
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-    console.log(e.target.value);
     onChange({
       ...values,
       [name]: value,
@@ -37,7 +33,7 @@ const Filter = ({ onChange, values }: FilterTypes) => {
         <label className="select">
           <span className="visually-hidden">Search by duration</span>
           <select name="duration" onChange={handleChange}>
-            <option value="">duration</option>
+            <option value="all">duration</option>
             <option value="0_x_5">&lt; 5 days</option>
             <option value="5_x_10">&lt; 10 days</option>
             <option value="10_x">&ge; 10 days</option>
@@ -46,7 +42,7 @@ const Filter = ({ onChange, values }: FilterTypes) => {
         <label className="select">
           <span className="visually-hidden">Search by level</span>
           <select name="level" onChange={handleChange}>
-            <option value="">level</option>
+            <option value="all">level</option>
             <option value="easy">easy</option>
             <option value="moderate">moderate</option>
             <option value="difficult">difficult</option>
