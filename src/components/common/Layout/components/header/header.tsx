@@ -4,7 +4,7 @@ import { Image } from "../../../image/image";
 import img_briefcase from "./img/briefcase.svg";
 import img_user from "./img/user.svg";
 import { Button } from "../../../button/button";
-import { AppRoute } from "../../../../../enums/route-enum";
+import { AppRoute } from "../../../../../enums/routes/route-enum";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {

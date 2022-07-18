@@ -1,7 +1,7 @@
 import { Button } from "../common/button/button";
 import { Link } from "react-router-dom";
 import "./style.css";
-import { AppRoute } from "../../enums/route-enum";
+import { AppRoute } from "../../enums/routes/route-enum";
 
 const SignIn = () => {
   return (

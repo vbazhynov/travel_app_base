@@ -1,13 +1,17 @@
 import { Button } from "../common/button/button";
 import { Link } from "react-router-dom";
-import { AppRoute } from "../../enums/route-enum";
+import { AppRoute } from "../../enums/routes/route-enum";
 import "./style.css";
+
+function submitHandler() {
+  console.log("submit");
+}
 
 const SignUp = () => {
   return (
     <main className="sign-up-page">
       <h1 className="visually-hidden">Travel App</h1>
-      <form className="sign-up-form">
+      <form className="sign-up-form" onSubmit={submitHandler}>
         <h2 className="sign-up-form__title">Sign Up</h2>
         <label className="trip-popup__input input">
           <span className="input__heading">Full name</span>

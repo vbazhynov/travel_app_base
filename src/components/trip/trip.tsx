@@ -8,7 +8,7 @@ const Trip = () => {
   const { tripId } = useParams();
   const trip = tripsDb.find((trip) => trip.id === tripId);
   if (trip) {
-    const { id, image, title, duration, level, description, price } = trip;
+    const { image, title, duration, level, description, price } = trip;
     return (
       <main className="trip-page">
         <h1 className="visually-hidden">Travel App</h1>
