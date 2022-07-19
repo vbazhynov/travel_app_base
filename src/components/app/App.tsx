@@ -12,6 +12,7 @@ function App() {
       <Routes>
         <Route path={AppRoute.ROOT} element={<Layout />}>
           <Route index element={<Main />} />
+          <Route path={AppRoute.ANY} element={<Main />} />
           <Route path={AppRoute.SIGN_IN} element={<SignIn />} />
           <Route path={AppRoute.SIGN_UP} element={<SignUp />} />
           <Route path={AppRoute.TRIP_$ID} element={<Trip />} />
