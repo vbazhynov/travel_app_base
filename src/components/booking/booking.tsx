@@ -10,7 +10,6 @@ const Booking = () => {
 
   const cancelBookingHandler = (id: string) => {
     setTrips(prevState => prevState.filter(el => el.id !== id));
-    console.log(trips);
   };
 
   return (
