@@ -45,7 +45,7 @@
   margin: 0 0 5px;
   font-weight: 600;
   font-size: var(--font-size-400);
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
 }
 
 .trip-info__content {
@@ -56,14 +56,14 @@
 .trip-info__duration {
   min-width: 120px;
   padding-left: 25px;
-  background-image: url("./img/calendar.svg");
+  background-image: url('./img/calendar.svg');
   background-repeat: no-repeat;
   background-position: 0 50%;
   background-size: 15px;
 }
 
 .trip-info__level::before {
-  content: "•";
+  content: '•';
   margin-right: 10px;
   color: var(--color-blue-200);
 }
@@ -75,4 +75,49 @@
   color: var(--color-blue-200);
   font-size: var(--font-size-600);
   line-height: 1;
+}
+
+.trip-popup {
+  position: relative;
+  flex: 1;
+  max-width: 380px;
+  padding: 25px 40px 30px;
+  background-color: var(--color-white);
+  box-shadow: var(--shadow);
+}
+
+.trip-popup__close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  padding: 0;
+  font-weight: 300;
+  font-size: var(--font-size-400);
+  line-height: 1;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.trip-popup__form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.trip-popup__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 5px;
+  padding-top: 15px;
+  border-top: 1px solid var(--color-gray);
+}
+
+.trip-popup__total-value {
+  font-weight: 600;
+  font-size: var(--font-size-400);
 }

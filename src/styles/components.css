@@ -7,7 +7,7 @@
   font-size: var(--font-size-300);
   background-color: var(--color-white);
   background-color: var(--color-white);
-  background-image: url("../images/arrow-down.svg");
+  background-image: url('../images/arrow-down.svg');
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
   background-size: 15px;
@@ -39,19 +39,6 @@
   background-color: var(--color-blue-300);
 }
 
-/* modal */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-  background-color: var(--overlay-color);
-}
-
 /* loader */
 
 .loader {
@@ -76,7 +63,7 @@
   margin: 0 0 5px;
   font-weight: 600;
   font-size: var(--font-size-400);
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
 }
 
 .trip-info__content {
@@ -87,14 +74,14 @@
 .trip-info__duration {
   min-width: 120px;
   padding-left: 25px;
-  background-image: url("../images/calendar.svg");
+  background-image: url('../images/calendar.svg');
   background-repeat: no-repeat;
   background-position: 0 50%;
   background-size: 15px;
 }
 
 .trip-info__level::before {
-  content: "•";
+  content: '•';
   margin-right: 10px;
   color: var(--color-blue-200);
 }

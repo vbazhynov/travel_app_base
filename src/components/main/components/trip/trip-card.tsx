@@ -1,7 +1,7 @@
-import { Image } from "../../../common/image/image";
-import { Link } from "react-router-dom";
+import { Image } from '../../../common/image/image';
+import { Link } from 'react-router-dom';
 
-type TripCardType = {
+export type TripCardType = {
   id: string;
   image: string;
   duration: number;
@@ -37,7 +37,7 @@ const TripCard = ({
         </div>
       </div>
       <Link to={`/trip/${id}`} className="button">
-        {" "}
+        {' '}
         Discover a trip
       </Link>
     </li>

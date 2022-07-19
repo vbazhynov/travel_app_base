@@ -17,7 +17,7 @@
   color: var(--color-blue-400);
   font-weight: 600;
   font-size: var(--font-size-500);
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   text-decoration: none;
 }
 
@@ -83,4 +83,8 @@
 
 .profile-nav__sign-out {
   min-height: auto;
+}
+
+.hidden {
+  display: none;
 }
