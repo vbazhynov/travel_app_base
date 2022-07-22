@@ -1,6 +1,6 @@
 import { Button } from '../common/button/button';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../enums/routes/route-enum';
+import { AppRoute } from '../../common/enums/app/app-route.enum';
 import './style.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

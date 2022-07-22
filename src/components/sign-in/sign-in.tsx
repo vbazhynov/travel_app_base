@@ -1,8 +1,10 @@
 import { Button } from '../common/button/button';
 import { Link } from 'react-router-dom';
 import './style.css';
-import { AppRoute } from '../../enums/routes/route-enum';
+import { AppRoute } from '../../common/enums/app/app-route.enum';
 import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -10,6 +12,16 @@ const SignIn = () => {
   let navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const notifyPasswordError = () =>
+    toast.error('Password must be 3 to 20 symbols', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
   const emailHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(target.value);
@@ -22,7 +34,7 @@ const SignIn = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password.length < 3 || password.length > 20) {
-      alert('password must be 3 to 20 symbols');
+      notifyPasswordError();
       console.error('password must be 3 to 20 symbols');
       return;
     } else {
@@ -32,6 +44,7 @@ const SignIn = () => {
 
   return (
     <main className="sign-in-page">
+      <ToastContainer />
       <h1 className="visually-hidden">Travel App</h1>
       <form
         onSubmit={submitHandler}

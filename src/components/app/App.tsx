@@ -1,4 +1,4 @@
-import { AppRoute } from '../../enums/routes/route-enum';
+import { AppRoute } from '../../common/enums/app/app-route.enum';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from '../common/Layout/layout';
 import { Main } from '../main/main';

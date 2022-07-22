@@ -1,4 +1,4 @@
-import { DEFAULT_FILTER_VALUE } from '../../../../../enums/constants/filter-defaults';
+import { DEFAULT_FILTER_VALUE } from '../../../../../common/constants/filter-defaults';
 import { filterValuesType } from '../../../common/constants';
 type TripCardType = {
   id: string;

@@ -25,6 +25,11 @@ html {
 }
 
 body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
   display: flex;
   flex-direction: column;
   min-width: 320px;
@@ -42,8 +47,8 @@ body {
 }
 
 main {
+  flex: 1 1 auto;
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
 }
 
