@@ -4,14 +4,24 @@ import { Image } from '../../../image/image';
 import img_briefcase from './img/briefcase.svg';
 import img_user from './img/user.svg';
 import { Button } from '../../../button/button';
-import { AppRoute } from '../../../../../common/enums/app/app-route.enum';
-import { useNavigate, useLocation } from 'react-router-dom';
+// import { AppRoute } from '../../../../../common/enums/app/app-route.enum';
+import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useAppDispatch } from '../../../../../common/hooks/hooks';
+import { profileActionCreator } from '../../../../../store/actions';
+// import { StorageKey } from '../../../../../common/enums/enums';
 
 const Header = () => {
-  let navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  // let navigate = useNavigate();
   let location = useLocation();
   const headerNav = document.querySelector('.header__nav');
+  const signOutHandler = () => {
+    dispatch(profileActionCreator.signOut());
+  };
+
+  // const state = useAppSelector(state => state.user);
+
   useEffect(() => {
     if (location.pathname === '/sign-up' || location.pathname === '/sign-in') {
       headerNav?.classList.add('hidden');
@@ -40,12 +50,12 @@ const Header = () => {
                 <Image src={img_user} alt="profile icon" />
                 <ul className="profile-nav__list">
                   <li className="profile-nav__item profile-nav__username">
-                    John Doe
+                    {/* {fullName} */}
                   </li>
                   <li className="profile-nav__item">
                     <Button
                       className="profile-nav__sign-out button"
-                      onClick={() => navigate(AppRoute.SIGN_IN)}
+                      onClick={signOutHandler}
                     >
                       Sign Out
                     </Button>

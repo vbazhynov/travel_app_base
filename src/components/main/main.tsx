@@ -1,22 +1,32 @@
-import { getFilteredTrips } from "./components/filter/helpers/getfilteredtrips";
-import "./style.css";
-import { tripsDb } from "../../database/trips";
-import { TripCard } from "./components/trip/trip-card";
-import { useState } from "react";
-import { Filter } from "./components/filter/filter";
-import { DEFAULT_FILTER_VALUES } from "./common/constants";
-import { filterValuesType } from "./common/constants";
+import { getFilteredTrips } from './components/filter/helpers/getfilteredtrips';
+import './style.css';
+import { TripCard } from './components/trip/trip-card';
+import { useEffect, useState } from 'react';
+import { Filter } from './components/filter/filter';
+import { DEFAULT_FILTER_VALUES } from './common/constants';
+import { filterValuesType } from './common/constants';
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+import { tripsActionCreator } from '../../store/actions';
+import { User } from '../../store/profile/reducer';
 
 const Main = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(tripsActionCreator.loadTrips());
+  }, [dispatch]);
+
+  const trips = useAppSelector(state => state.trips.list);
+  const tripsArr = [...trips];
   const [filterValues, setFilterValues] = useState<filterValuesType>(
-    DEFAULT_FILTER_VALUES
+    DEFAULT_FILTER_VALUES,
   );
 
   const handlerFilterChange = (values: filterValuesType) => {
     setFilterValues(values);
   };
 
-  const filteredTrips = getFilteredTrips(tripsDb, filterValues);
+  const filteredTrips = getFilteredTrips(tripsArr, filterValues);
 
   return (
     <main>
@@ -25,7 +35,7 @@ const Main = () => {
       <section className="trips">
         <h2 className="visually-hidden">Trips List</h2>
         <ul className="trip-list">
-          {filteredTrips.map((trip) => (
+          {filteredTrips.map(trip => (
             <TripCard
               id={trip.id}
               level={trip.level}

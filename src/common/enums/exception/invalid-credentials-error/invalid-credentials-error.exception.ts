@@ -1,4 +1,4 @@
-import { ExceptionMessage, ExceptionName } from '../../common/enums/enums.js';
+import { ExceptionMessage, ExceptionName } from '../../enums';
 
 class InvalidCredentialsError extends Error {
   constructor(message = ExceptionMessage.INCORRECT_EMAIL) {

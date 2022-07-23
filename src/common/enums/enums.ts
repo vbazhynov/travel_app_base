@@ -3,7 +3,8 @@ export {
   AuthApiPath,
   TripsApiPath,
   BookingsApiPath,
-} from './api/api.js';
+  REACT_APP_BASE_PATH,
+} from './api/api';
 export {
   ExceptionName,
   ExceptionMessage,
@@ -11,10 +12,10 @@ export {
   InvalidCredentialsError,
 } from './exception/exceptions';
 export { FilterKey } from './filter/filter';
-export { AppRoute, ENV, StorageKey } from './app/app.js';
-export { HttpCode, HttpHeader, HttpMethod } from './http/http.js';
-export { UserPayloadKey } from './user/user.js';
-export { TripPayloadKey } from './trip/trip.js';
-export { BookingsPayloadKey } from './bookings/bookings.js';
-export { NotificationMessage } from './notifications/notifications.js';
+export { AppRoute, StorageKey } from './app/app';
+export { HttpCode, HttpHeader, HttpMethod } from './http/http';
+export { UserPayloadKey } from './user/user';
+export { TripPayloadKey } from './trip/trip';
+export { BookingsPayloadKey } from './bookings/bookings';
+export { NotificationMessage } from './notifications/notifications';
 export { ContentType } from './file/file';
