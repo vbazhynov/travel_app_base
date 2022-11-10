@@ -7,7 +7,6 @@ import { DEFAULT_FILTER_VALUES } from './common/constants';
 import { filterValuesType } from './common/constants';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { tripsActionCreator } from '../../store/actions';
-import { User } from '../../store/profile/reducer';
 
 const Main = () => {
   const dispatch = useAppDispatch();

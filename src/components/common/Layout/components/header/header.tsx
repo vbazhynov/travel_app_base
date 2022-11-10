@@ -5,7 +5,7 @@ import img_briefcase from './img/briefcase.svg';
 import img_user from './img/user.svg';
 import { Button } from '../../../button/button';
 // import { AppRoute } from '../../../../../common/enums/app/app-route.enum';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../../../../common/hooks/hooks';
 import { profileActionCreator } from '../../../../../store/actions';
@@ -13,11 +13,12 @@ import { profileActionCreator } from '../../../../../store/actions';
 
 const Header = () => {
   const dispatch = useAppDispatch();
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
   let location = useLocation();
   const headerNav = document.querySelector('.header__nav');
   const signOutHandler = () => {
     dispatch(profileActionCreator.signOut());
+    navigate('/sign-in');
   };
 
   // const state = useAppSelector(state => state.user);

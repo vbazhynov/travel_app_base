@@ -16,7 +16,7 @@ function App() {
 
   const hasToken = Boolean(localStorage.getItem(StorageKey.TOKEN));
   const user = useAppSelector(state => state.user);
-  const hasUser = Boolean(user.id);
+  const hasUser = Boolean(user);
   console.log('token ' + hasToken);
   console.log('user ' + hasUser);
 

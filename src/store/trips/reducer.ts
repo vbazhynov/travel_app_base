@@ -1,4 +1,4 @@
-import { createReducer, isAnyOf } from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import { loadTrips } from './actions';
 
 type TripType = {

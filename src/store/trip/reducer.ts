@@ -27,8 +27,16 @@ const initialState: TripState = {
 
 const reducer = createReducer(initialState, builder => {
   builder.addCase(loadTripById.fulfilled, (state, action) => {
-    state = action.payload;
-    console.log(state);
+    const { id, title, description, level, duration, price, image, createdAt } =
+      action.payload;
+    state.id = id;
+    state.title = title;
+    state.description = description;
+    state.level = level;
+    state.duration = duration;
+    state.price = price;
+    state.image = image;
+    state.createdAt = createdAt;
   });
 });
 

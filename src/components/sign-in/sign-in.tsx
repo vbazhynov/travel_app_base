@@ -93,7 +93,7 @@ const SignIn = () => {
         </Button>
       </form>
       <span>
-        Already have an account?
+        Still don`t have account?
         <Link to={AppRoute.SIGN_UP} className="sign-in-form__link">
           Sign Up
         </Link>

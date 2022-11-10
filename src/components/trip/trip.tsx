@@ -6,25 +6,25 @@ import { useEffect, useState } from 'react';
 import './style.css';
 import { BookingPopup } from './components/booking-popup/booking-popup';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { tripsActionCreator } from '../../store/actions';
+import { tripActionCreator } from '../../store/actions';
 import { TripType } from '../../store/trip/reducer';
 
 const Trip = () => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { tripId } = useParams();
-  console.log(tripId);
 
   useEffect(() => {
     if (tripId) {
-      dispatch(tripsActionCreator.loadTripById(tripId));
+      dispatch(tripActionCreator.loadTripById(tripId));
     }
   }, [dispatch, tripId]);
   const trip = useAppSelector(state => state.trip as unknown as TripType);
-  console.log('trip ' + trip);
+  console.log('trip ' + JSON.stringify(trip));
 
   if (trip) {
     const { image, title, duration, level, description, price } = trip;
+    console.log(title);
 
     const openModalHandler = () => {
       setIsModalOpen(true);

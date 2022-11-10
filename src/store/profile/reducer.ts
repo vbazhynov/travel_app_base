@@ -1,5 +1,5 @@
 import { createReducer, isAnyOf } from '@reduxjs/toolkit';
-import { signIn, signOut, signUp, loadCurrentUser } from './actions';
+import { signIn, signUp, loadCurrentUser } from './actions';
 
 export type User = {
   id: string;
@@ -17,11 +17,11 @@ const initialState: UserState = {
   createdAt: '',
 };
 
-const reducer = createReducer(initialState, builder => {
+const reducer = createReducer({ user: initialState }, builder => {
   builder.addMatcher(
     isAnyOf(signIn.fulfilled, signUp.fulfilled, loadCurrentUser.fulfilled),
     (state, action) => {
-      state = action.payload;
+      state.user = action.payload;
       console.log(state);
     },
   );
