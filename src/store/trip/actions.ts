@@ -16,7 +16,7 @@ type TripType = {
 export const loadTripById = createAsyncThunk<TripType, string, {}>(
   ActionType.GET_TRIP$ID,
   async id => {
-    const trips = await getTripById(id);
-    return trips;
+    const trip = await getTripById(id);
+    return trip;
   },
 );

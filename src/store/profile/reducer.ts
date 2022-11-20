@@ -8,21 +8,49 @@ export type User = {
   createdAt: string;
 };
 
-type UserState = User;
-
-const initialState: UserState = {
-  id: '',
-  fullName: '',
-  email: '',
-  createdAt: '',
+type ErrorType = {
+  error: string;
+  message: string;
+  statusCode: string;
+};
+type UserState = {
+  user: User;
+  status: 'idle' | 'pending' | 'succeeded' | 'failed';
+  error: ErrorType;
 };
 
-const reducer = createReducer({ user: initialState }, builder => {
+const initialState: UserState = {
+  user: { id: '', fullName: '', email: '', createdAt: '' },
+  status: 'idle',
+  error: {
+    error: '',
+    message: '',
+    statusCode: '',
+  },
+};
+
+const reducer = createReducer(initialState, builder => {
   builder.addMatcher(
     isAnyOf(signIn.fulfilled, signUp.fulfilled, loadCurrentUser.fulfilled),
     (state, action) => {
       state.user = action.payload;
-      console.log(state);
+      state.status = 'succeeded';
+    },
+  );
+
+  builder.addMatcher(
+    isAnyOf(signIn.pending, signUp.pending, loadCurrentUser.pending),
+    state => {
+      state.status = 'pending';
+    },
+  );
+
+  builder.addMatcher(
+    isAnyOf(signIn.rejected, signUp.rejected, loadCurrentUser.rejected),
+    (state, action) => {
+      state.status = 'failed';
+      // state.error = action.error as ErrorType;
+      console.log(action);
     },
   );
 });

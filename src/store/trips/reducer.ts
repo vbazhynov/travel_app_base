@@ -12,15 +12,28 @@ type TripType = {
   createdAt: string;
 };
 
-type TripState = { list: TripType[] };
+type TripState = {
+  list: TripType[];
+  status: 'idle' | 'pending' | 'succeeded' | 'failed';
+};
 
 const initialState: TripState = {
   list: [],
+  status: 'idle',
 };
 
 const reducer = createReducer(initialState, builder => {
   builder.addCase(loadTrips.fulfilled, (state, action) => {
     state.list = action.payload;
+    state.status = 'succeeded';
+  });
+
+  builder.addCase(loadTrips.pending, state => {
+    state.status = 'pending';
+  });
+
+  builder.addCase(loadTrips.rejected, state => {
+    state.status = 'failed';
   });
 });
 

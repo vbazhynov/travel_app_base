@@ -1,11 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { userReducer, tripsReducer, tripReducer } from './root-reducer';
+import {
+  userReducer,
+  tripsReducer,
+  tripReducer,
+  bookingReducer,
+} from './root-reducer';
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     trips: tripsReducer,
     trip: tripReducer,
+    bookings: bookingReducer,
   },
 });
 

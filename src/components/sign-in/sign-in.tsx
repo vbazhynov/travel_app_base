@@ -5,9 +5,10 @@ import { AppRoute } from '../../common/enums/app/app-route.enum';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useAppDispatch } from '../../common/hooks/hooks';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { profileActionCreator } from '../../store/actions';
+import { StorageKey } from '../../common/enums/enums';
 
 type signInType = {
   email: string;
@@ -15,11 +16,12 @@ type signInType = {
 };
 
 const SignIn = () => {
+  const hasToken = Boolean(localStorage.getItem(StorageKey.TOKEN));
   const dispatch = useAppDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const status = useAppSelector(state => state.user.status);
   const notifyPasswordError = () =>
     toast.error('Password must be 3 to 20 symbols', {
       position: 'top-right',
@@ -30,6 +32,29 @@ const SignIn = () => {
       draggable: true,
       progress: undefined,
     });
+
+  const notifyLoginFailed = () =>
+    toast.error(
+      'User not found, please check your login and password or Sign Up',
+      {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      },
+    );
+
+  useEffect(() => {
+    if (status === 'succeeded' && hasToken) {
+      navigate(AppRoute.MAIN);
+    }
+    if (status === 'failed') {
+      notifyLoginFailed();
+    }
+  }, [navigate, status, hasToken]);
 
   const handleLogin = (loginPayload: signInType) => {
     dispatch(profileActionCreator.signIn(loginPayload));
@@ -53,7 +78,6 @@ const SignIn = () => {
         email: email,
         password: password,
       };
-      navigate(AppRoute.MAIN);
       handleLogin(payload);
     }
   };
@@ -98,6 +122,7 @@ const SignIn = () => {
           Sign Up
         </Link>
       </span>
+      {status === 'pending' && <div className="loader"></div>}
     </main>
   );
 };

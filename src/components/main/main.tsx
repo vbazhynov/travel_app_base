@@ -6,15 +6,33 @@ import { Filter } from './components/filter/filter';
 import { DEFAULT_FILTER_VALUES } from './common/constants';
 import { filterValuesType } from './common/constants';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { tripsActionCreator } from '../../store/actions';
+import { profileActionCreator, tripsActionCreator } from '../../store/actions';
+import { AppRoute, StorageKey } from '../../common/enums/enums';
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const user = useAppSelector(state => state.user.user.fullName);
+  console.log(user);
+
+  const hasUser = Boolean(user);
+  console.log('user ' + hasUser);
+  const hasToken = Boolean(localStorage.getItem(StorageKey.TOKEN));
+
+  useEffect(() => {
+    if (hasToken) {
+      dispatch(profileActionCreator.loadCurrentUser());
+    } else {
+      navigate(AppRoute.SIGN_IN);
+    }
+  }, [navigate, hasToken, dispatch]);
 
   useEffect(() => {
     dispatch(tripsActionCreator.loadTrips());
   }, [dispatch]);
 
+  const status = useAppSelector(state => state.trips.status);
   const trips = useAppSelector(state => state.trips.list);
   const tripsArr = [...trips];
   const [filterValues, setFilterValues] = useState<filterValuesType>(
@@ -33,19 +51,22 @@ const Main = () => {
       <Filter values={filterValues} onChange={handlerFilterChange} />
       <section className="trips">
         <h2 className="visually-hidden">Trips List</h2>
-        <ul className="trip-list">
-          {filteredTrips.map(trip => (
-            <TripCard
-              id={trip.id}
-              level={trip.level}
-              duration={trip.duration}
-              image={trip.image}
-              title={trip.title}
-              price={trip.price}
-              key={trip.id}
-            />
-          ))}
-        </ul>
+        {status === 'pending' && <div className="loader"></div>}
+        {status === 'succeeded' && (
+          <ul className="trip-list">
+            {filteredTrips.map(trip => (
+              <TripCard
+                id={trip.id}
+                level={trip.level}
+                duration={trip.duration}
+                image={trip.image}
+                title={trip.title}
+                price={trip.price}
+                key={trip.id}
+              />
+            ))}
+          </ul>
+        )}
       </section>
     </main>
   );

@@ -44,29 +44,26 @@ const signUp = createAsyncThunk<User, signUpReqType>(
   },
 );
 
-const signIn = createAsyncThunk<User, signInReqType, {}>(
+const signIn = createAsyncThunk<User, signInReqType>(
   ActionType.SIGN_IN,
   async request => {
-    const { user, token } = await signInApi(request);
+    const { user, token }: { user: User; token: string } = await signInApi(
+      request,
+    );
 
     localStorage.setItem(StorageKey.TOKEN, token);
     return user;
   },
 );
 
-const signOut = createAsyncThunk<null, void, {}>(
-  ActionType.SIGN_OUT,
-  _request => {
-    console.log('tryToSignOut');
+const signOut = createAsyncThunk<null, void>(ActionType.SIGN_OUT, _request => {
+  localStorage.removeItem(StorageKey.TOKEN);
 
-    localStorage.removeItem(StorageKey.TOKEN);
+  return null;
+});
 
-    return null;
-  },
-);
-
-const loadCurrentUser = createAsyncThunk<User, void, {}>(
-  ActionType.SIGN_IN,
+const loadCurrentUser = createAsyncThunk<User, void>(
+  ActionType.LOAD_USER,
   async (_request, { dispatch, rejectWithValue }) => {
     try {
       return await getCurrentUserApi();

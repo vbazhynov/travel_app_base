@@ -2,6 +2,9 @@ import { Modal } from '../../../common/modal/modal';
 import { Button } from '../../../common/button/button';
 import { TripCardType } from '../../../main/components/trip/trip-card';
 import React, { useState } from 'react';
+import { useAppSelector, useAppDispatch } from '../../../../common/hooks/hooks';
+import { AddBookingType } from '../../../../store/booking/actions';
+import { bookingActionCreator } from '../../../../store/actions';
 
 type PopupType = {
   isOpen: boolean;
@@ -10,10 +13,14 @@ type PopupType = {
 };
 
 const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
-  const { title, duration, level, price } = trip;
+  const dispatch = useAppDispatch();
+  const { title, duration, level, price, id } = trip;
+  const [tripDate, setTripDate] = useState(new Date(Date.now()).toISOString());
   const [guests, setGuests] = useState(1);
   const [totalPrice, setTotalPrice] = useState(price);
   const [dateDiff, setDateDiff] = useState(0);
+  const userId = useAppSelector(state => state.user.user.id);
+  console.log(userId);
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,6 +28,13 @@ const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
       alert('Date must be in future');
       return;
     }
+    const bookingPayload: AddBookingType = {
+      tripId: id,
+      userId: userId,
+      guests: guests,
+      date: tripDate,
+    };
+    dispatch(bookingActionCreator.createBooking(bookingPayload));
     onClose();
   };
 
@@ -44,6 +58,7 @@ const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
     const tripDate = new Date(target.value);
     const diff = Date.now() - tripDate.getTime();
     setDateDiff(diff);
+    setTripDate(tripDate.toISOString());
   };
 
   return (

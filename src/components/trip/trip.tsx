@@ -31,7 +31,6 @@ const Trip = () => {
       console.log('try to open modal' + isModalOpen);
     };
     const onClose = () => {
-      console.log('Modal Close');
       setIsModalOpen(false);
     };
     return (
