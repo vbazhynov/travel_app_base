@@ -49,8 +49,6 @@ const reducer = createReducer(initialState, builder => {
     isAnyOf(signIn.rejected, signUp.rejected, loadCurrentUser.rejected),
     (state, action) => {
       state.status = 'failed';
-      // state.error = action.error as ErrorType;
-      console.log(action);
     },
   );
 });

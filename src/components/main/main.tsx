@@ -13,11 +13,6 @@ import { useNavigate } from 'react-router-dom';
 const Main = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector(state => state.user.user.fullName);
-  console.log(user);
-
-  const hasUser = Boolean(user);
-  console.log('user ' + hasUser);
   const hasToken = Boolean(localStorage.getItem(StorageKey.TOKEN));
 
   useEffect(() => {

@@ -52,8 +52,6 @@ export async function deleteBookingById(id: string) {
 
 async function checkStatus(response: Response) {
   if (!response.ok) {
-    console.log(response);
-
     const parsedException = await response.json().catch(() => ({
       message: response.statusText,
     }));

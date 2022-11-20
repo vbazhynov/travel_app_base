@@ -5,7 +5,7 @@ import { AppRoute } from '../../common/enums/app/app-route.enum';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { profileActionCreator } from '../../store/actions';
 import { StorageKey } from '../../common/enums/enums';
@@ -15,7 +15,7 @@ type signInType = {
   password: string;
 };
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
   const hasToken = Boolean(localStorage.getItem(StorageKey.TOKEN));
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const SignIn = () => {
       'User not found, please check your login and password or Sign Up',
       {
         position: 'top-right',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

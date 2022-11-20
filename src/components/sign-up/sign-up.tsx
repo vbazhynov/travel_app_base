@@ -4,10 +4,9 @@ import { AppRoute } from '../../common/enums/app/app-route.enum';
 import './style.css';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../common/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { profileActionCreator } from '../../store/actions';
 import { toast } from 'react-toastify';
-import { REACT_APP_BASE_PATH } from '../../common/enums/api/api-base-path';
 import { StorageKey } from '../../common/enums/enums';
 
 type signUpType = {
@@ -17,12 +16,13 @@ type signUpType = {
 };
 
 const SignUp: React.FC = () => {
+  const hasToken = Boolean(localStorage.getItem(StorageKey.TOKEN));
   const dispatch = useAppDispatch();
   let navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-
+  const status = useAppSelector(state => state.user.status);
   const notifyPasswordError = () =>
     toast.error('Password must be 3 to 20 symbols', {
       position: 'top-right',
@@ -38,17 +38,14 @@ const SignUp: React.FC = () => {
     dispatch(profileActionCreator.signUp(registerPayload));
   };
 
-  const hasToken = Boolean(localStorage.getItem(StorageKey.TOKEN));
-
   useEffect(() => {
-    if (hasToken) {
+    if (status === 'succeeded') {
       navigate(AppRoute.MAIN);
     }
-  }, [navigate, hasToken]);
+  }, [navigate, hasToken, status]);
 
   const passwordHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(target.value);
-    console.log(REACT_APP_BASE_PATH);
   };
 
   const fullNameHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,6 +123,7 @@ const SignUp: React.FC = () => {
           Sign In
         </Link>
       </span>
+      {status === 'pending' && <div className="loader"></div>}
     </main>
   );
 };

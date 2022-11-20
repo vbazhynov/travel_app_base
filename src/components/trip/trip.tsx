@@ -20,15 +20,12 @@ const Trip = () => {
     }
   }, [dispatch, tripId]);
   const trip = useAppSelector(state => state.trip as unknown as TripType);
-  console.log('trip ' + JSON.stringify(trip));
 
   if (trip) {
     const { image, title, duration, level, description, price } = trip;
-    console.log(title);
 
     const openModalHandler = () => {
       setIsModalOpen(true);
-      console.log('try to open modal' + isModalOpen);
     };
     const onClose = () => {
       setIsModalOpen(false);

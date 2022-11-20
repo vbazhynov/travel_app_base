@@ -36,7 +36,6 @@ const signUp = createAsyncThunk<User, signUpReqType>(
     const { user, token }: { user: User; token: string } = await signUpApi(
       request,
     );
-    console.log(user);
 
     localStorage.setItem(StorageKey.TOKEN, token);
 

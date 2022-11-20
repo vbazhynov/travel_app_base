@@ -2,6 +2,7 @@ import { Modal } from '../../../common/modal/modal';
 import { Button } from '../../../common/button/button';
 import { TripCardType } from '../../../main/components/trip/trip-card';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '../../../../common/hooks/hooks';
 import { AddBookingType } from '../../../../store/booking/actions';
 import { bookingActionCreator } from '../../../../store/actions';
@@ -20,8 +21,16 @@ const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
   const [totalPrice, setTotalPrice] = useState(price);
   const [dateDiff, setDateDiff] = useState(0);
   const userId = useAppSelector(state => state.user.user.id);
-  console.log(userId);
-
+  const notifyBookingAdd = () =>
+    toast.info('Yor booking was created', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (dateDiff > 0) {
@@ -35,6 +44,7 @@ const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
       date: tripDate,
     };
     dispatch(bookingActionCreator.createBooking(bookingPayload));
+    notifyBookingAdd();
     onClose();
   };
 
