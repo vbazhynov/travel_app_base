@@ -6,6 +6,9 @@ import { SignIn } from '../sign-in/sign-in';
 import { SignUp } from '../sign-up/sign-up';
 import { Trip } from '../trip/trip';
 import { Booking } from '../booking/booking';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return (
     <>
@@ -19,6 +22,7 @@ function App() {
           <Route path={AppRoute.BOOKINGS} element={<Booking />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </>
   );
 }

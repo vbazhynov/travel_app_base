@@ -2,6 +2,7 @@ import { Modal } from '../../../common/modal/modal';
 import { Button } from '../../../common/button/button';
 import { TripCardType } from '../../../main/components/trip/trip-card';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 type PopupType = {
   isOpen: boolean;
@@ -18,7 +19,8 @@ const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (dateDiff > 0) {
-      alert('Date must be in future');
+      // alert('Date must be in future');
+      toast('Date must be in future');
       return;
     }
     onClose();
