@@ -22,13 +22,14 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
   display: flex;
   flex-direction: column;
   min-width: 320px;
-  min-height: 100vh;
+  height: 100%;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -41,9 +42,15 @@ body {
   background-color: var(--color-white);
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
 main {
   display: flex;
-  flex-grow: 1;
+  flex: 1 1 auto;
   flex-direction: column;
 }
 
