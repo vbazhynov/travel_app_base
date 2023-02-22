@@ -3,6 +3,7 @@ import { Button } from '../../../common/button/button';
 import { TripCardType } from '../../../main/components/trip/trip-card';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { BookingGuestCount } from '../../../../enums/constants/constants';
 
 type PopupType = {
   isOpen: boolean;
@@ -12,14 +13,15 @@ type PopupType = {
 
 const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
   const { title, duration, level, price } = trip;
-  const [guests, setGuests] = useState(1);
+  const [guests, setGuests] = useState(
+    BookingGuestCount.MINIMUM_GUESTS_FOR_BOOKING,
+  );
   const [totalPrice, setTotalPrice] = useState(price);
   const [dateDiff, setDateDiff] = useState(0);
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (dateDiff > 0) {
-      // alert('Date must be in future');
       toast('Date must be in future');
       return;
     }
@@ -32,12 +34,12 @@ const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
     let guestsNum = parseInt(target.value);
     setGuests(guestsNum);
     if (!guestsNum) {
-      setGuests(1);
-      guestsNum = 1;
+      setGuests(BookingGuestCount.MINIMUM_GUESTS_FOR_BOOKING);
+      guestsNum = BookingGuestCount.MINIMUM_GUESTS_FOR_BOOKING;
     }
-    if (guestsNum > 10) {
-      setGuests(10);
-      guestsNum = 10;
+    if (guestsNum > BookingGuestCount.MAXIMUM_GUEST_BOOKING) {
+      setGuests(BookingGuestCount.MAXIMUM_GUEST_BOOKING);
+      guestsNum = BookingGuestCount.MAXIMUM_GUEST_BOOKING;
     }
     setTotalPrice(price * guestsNum);
   };

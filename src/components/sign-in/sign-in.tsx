@@ -5,6 +5,7 @@ import { AppRoute } from '../../enums/routes/route-enum';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
   let navigate = useNavigate();
@@ -22,8 +23,16 @@ const SignIn = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password.length < 3 || password.length > 20) {
-      alert('password must be 3 to 20 symbols');
-      console.error('password must be 3 to 20 symbols');
+      toast.error('password must be 3 to 20 symbols', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       return;
     } else {
       navigate(AppRoute.ROOT);
