@@ -3,7 +3,9 @@ import { Button } from '../../../common/button/button';
 import { TripCardType } from '../../../main/components/trip/trip-card';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { BookingGuestCount } from '../../../../enums/constants/constants';
+import { useAppSelector, useAppDispatch } from '../../../../common/hooks/hooks';
+import { AddBookingType } from '../../../../store/booking/actions';
+import { bookingActionCreator } from '../../../../store/actions';
 
 type PopupType = {
   isOpen: boolean;
@@ -12,19 +14,45 @@ type PopupType = {
 };
 
 const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
-  const { title, duration, level, price } = trip;
-  const [guests, setGuests] = useState(
-    BookingGuestCount.MINIMUM_GUESTS_FOR_BOOKING,
-  );
+  const dispatch = useAppDispatch();
+  const { title, duration, level, price, id } = trip;
+  const [tripDate, setTripDate] = useState(new Date(Date.now()).toISOString());
+  const [guests, setGuests] = useState(1);
   const [totalPrice, setTotalPrice] = useState(price);
   const [dateDiff, setDateDiff] = useState(0);
-
+  const userId = useAppSelector(state => state.user.user.id);
+  const notifyBookingAdd = () =>
+    toast.success('Yor booking was created', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (dateDiff > 0) {
-      toast('Date must be in future');
+      toast.error('Booking Date Must Be In Future', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       return;
     }
+    const bookingPayload: AddBookingType = {
+      tripId: id,
+      userId: userId,
+      guests: guests,
+      date: tripDate,
+    };
+    dispatch(bookingActionCreator.createBooking(bookingPayload));
+    notifyBookingAdd();
     onClose();
   };
 
@@ -48,6 +76,7 @@ const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
     const tripDate = new Date(target.value);
     const diff = Date.now() - tripDate.getTime();
     setDateDiff(diff);
+    setTripDate(tripDate.toISOString());
   };
 
   return (

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 type ButtonTypes = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: 'button' | 'submit' | 'reset' | undefined;
   isDisabled?: boolean;
   children: React.ReactNode;
 };
@@ -11,7 +11,7 @@ type ButtonTypes = {
 const Button: React.FC<ButtonTypes> = ({
   onClick,
   className,
-  type,
+  type = 'button',
   isDisabled,
   children,
 }) => {

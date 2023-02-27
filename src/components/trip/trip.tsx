@@ -1,25 +1,33 @@
 import { useParams } from 'react-router-dom';
-import { tripsDb } from '../../database/trips';
 import { Button } from '../common/button/button';
 import { Image } from '../common/image/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './style.css';
 import { BookingPopup } from './components/booking-popup/booking-popup';
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+import { tripActionCreator } from '../../store/actions';
+import { TripType } from '../../store/trip/reducer';
 
 const Trip = () => {
+  const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { tripId } = useParams();
-  const trip = tripsDb.find(trip => trip.id === tripId);
+
+  useEffect(() => {
+    if (tripId) {
+      dispatch(tripActionCreator.loadTripById(tripId));
+    }
+  }, [dispatch, tripId]);
+  const trip = useAppSelector(state => state.trip as unknown as TripType);
+
   if (trip) {
     const { image, title, duration, level, description, price } = trip;
 
     const openModalHandler = () => {
       setIsModalOpen(true);
-      console.log('try to open modal' + isModalOpen);
     };
     const onClose = () => {
-      console.log('Modal Close');
       setIsModalOpen(false);
     };
     return (

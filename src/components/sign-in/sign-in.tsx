@@ -1,16 +1,47 @@
 import { Button } from '../common/button/button';
 import { Link } from 'react-router-dom';
 import './style.css';
-import { AppRoute } from '../../enums/routes/route-enum';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { AppRoute } from '../../common/enums/app/app-route.enum';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+import { profileActionCreator } from '../../store/actions';
+import { StorageKey } from '../../common/enums/enums';
 
-const SignIn = () => {
-  let navigate = useNavigate();
+type signInType = {
+  email: string;
+  password: string;
+};
+
+const SignIn: React.FC = () => {
+  const hasToken = Boolean(localStorage.getItem(StorageKey.TOKEN));
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const status = useAppSelector(state => state.user.status);
+  const notifyPasswordError = () =>
+    toast.error('Password must be 3 to 20 symbols', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+  useEffect(() => {
+    if (status === 'succeeded' && hasToken) {
+      navigate(AppRoute.MAIN);
+    }
+  }, [navigate, status, hasToken]);
+
+  const handleLogin = (loginPayload: signInType) => {
+    dispatch(profileActionCreator.signIn(loginPayload));
+  };
 
   const emailHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(target.value);
@@ -23,19 +54,14 @@ const SignIn = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password.length < 3 || password.length > 20) {
-      toast.error('password must be 3 to 20 symbols', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      notifyPasswordError();
       return;
     } else {
-      navigate(AppRoute.ROOT);
+      const payload: signInType = {
+        email: email,
+        password: password,
+      };
+      handleLogin(payload);
     }
   };
 
@@ -74,11 +100,12 @@ const SignIn = () => {
         </Button>
       </form>
       <span>
-        Already have an account?
+        Still don`t have account?
         <Link to={AppRoute.SIGN_UP} className="sign-in-form__link">
           Sign Up
         </Link>
       </span>
+      {status === 'pending' && <div className="loader"></div>}
     </main>
   );
 };

@@ -53,14 +53,14 @@
 .trips-filter__search input {
   padding-left: 50px;
   background-color: var(--color-white);
-  background-image: url("./img/search.svg");
+  background-image: url('./img/search.svg');
   background-repeat: no-repeat;
   background-position: 15px 50%;
   background-size: 22px;
 }
 
 .trips {
-  padding: 60px 20px;
+  padding: 20px 20px;
 }
 
 .trip-list {
