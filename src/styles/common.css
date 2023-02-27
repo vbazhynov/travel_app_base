@@ -22,6 +22,7 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
@@ -54,6 +55,12 @@ body {
   line-height: 1.5;
   text-rendering: optimizespeed;
   background-color: var(--color-white);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 main {

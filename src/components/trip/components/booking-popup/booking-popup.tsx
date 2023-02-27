@@ -62,12 +62,12 @@ const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
     let guestsNum = parseInt(target.value);
     setGuests(guestsNum);
     if (!guestsNum) {
-      setGuests(1);
-      guestsNum = 1;
+      setGuests(BookingGuestCount.MINIMUM_GUESTS_FOR_BOOKING);
+      guestsNum = BookingGuestCount.MINIMUM_GUESTS_FOR_BOOKING;
     }
-    if (guestsNum > 10) {
-      setGuests(10);
-      guestsNum = 10;
+    if (guestsNum > BookingGuestCount.MAXIMUM_GUEST_BOOKING) {
+      setGuests(BookingGuestCount.MAXIMUM_GUEST_BOOKING);
+      guestsNum = BookingGuestCount.MAXIMUM_GUEST_BOOKING;
     }
     setTotalPrice(price * guestsNum);
   };
