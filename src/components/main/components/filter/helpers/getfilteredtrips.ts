@@ -19,16 +19,13 @@ const getFilteredTrips = (
   const checkDuration = (duration: string, tripDuration: number) => {
     switch (duration) {
       case '0_x_5': {
-        if (tripDuration > 0 && tripDuration <= 5) return true;
-        break;
+        return tripDuration > 0 && tripDuration <= 5;
       }
       case '5_x_10': {
-        if (tripDuration > 5 && tripDuration <= 10) return true;
-        break;
+        return tripDuration > 5 && tripDuration <= 10;
       }
       case '10_x': {
-        if (tripDuration > 10) return true;
-        break;
+        return tripDuration > 10;
       }
       default:
         return true;

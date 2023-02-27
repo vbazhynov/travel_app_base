@@ -5,11 +5,7 @@ import {
   signInApi,
 } from '../../helpers/api/authApi';
 import { HttpError } from '../../common/enums/enums';
-import {
-  HttpCode,
-  StorageKey,
-  ExceptionMessage,
-} from '../../common/enums/enums';
+import { HttpCode, StorageKey } from '../../common/enums/enums';
 import { ActionType } from './common';
 
 type User = {
@@ -57,7 +53,6 @@ const signIn = createAsyncThunk<User, signInReqType>(
 
 const signOut = createAsyncThunk<null, void>(ActionType.SIGN_OUT, _request => {
   localStorage.removeItem(StorageKey.TOKEN);
-
   return null;
 });
 
@@ -73,7 +68,7 @@ const loadCurrentUser = createAsyncThunk<User, void>(
         dispatch(signOut());
       }
 
-      return rejectWithValue(ExceptionMessage.UNKNOWN_ERROR);
+      return rejectWithValue('Unauthorised');
     }
   },
 );

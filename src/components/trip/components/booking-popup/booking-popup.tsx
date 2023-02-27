@@ -22,7 +22,7 @@ const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
   const [dateDiff, setDateDiff] = useState(0);
   const userId = useAppSelector(state => state.user.user.id);
   const notifyBookingAdd = () =>
-    toast.info('Yor booking was created', {
+    toast.success('Yor booking was created', {
       position: 'top-right',
       autoClose: 3000,
       hideProgressBar: false,
@@ -34,7 +34,15 @@ const BookingPopup = ({ isOpen, onClose, trip }: PopupType) => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (dateDiff > 0) {
-      alert('Date must be in future');
+      toast.error('Booking Date Must Be In Future', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       return;
     }
     const bookingPayload: AddBookingType = {

@@ -5,12 +5,7 @@ export {
   BookingsApiPath,
   REACT_APP_BASE_PATH,
 } from './api/api';
-export {
-  ExceptionName,
-  ExceptionMessage,
-  HttpError,
-  InvalidCredentialsError,
-} from './exception/exceptions';
+export { ExceptionName, HttpError } from './exception/exceptions';
 export { FilterKey } from './filter/filter';
 export { AppRoute, StorageKey } from './app/app';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';

@@ -21,6 +21,19 @@ export async function signUpApi<T>(payload: {
     .catch(throwError);
 }
 
+export async function deleteAuthUserApi<T>(): Promise<T> {
+  const token = localStorage.getItem(StorageKey.TOKEN);
+  return fetch(`${REACT_APP_BASE_PATH}${ApiPath.AUTH}${AuthApiPath.USER}`, {
+    method: HttpMethod.DELETE,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .catch(throwError);
+}
+
 export async function getCurrentUserApi<T>(): Promise<T> {
   const token = localStorage.getItem(StorageKey.TOKEN);
   return fetch(`${REACT_APP_BASE_PATH}${ApiPath.AUTH}${AuthApiPath.USER}`, {

@@ -1,11 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ActionType } from './common';
 import { getAllTrips } from '../../helpers/api/tripsApi';
-import {
-  ExceptionMessage,
-  HttpCode,
-  HttpError,
-} from '../../common/enums/enums';
+import { HttpCode, HttpError } from '../../common/enums/enums';
 import { signOut } from '../profile/actions';
 
 type TripType = {
@@ -31,7 +27,7 @@ export const loadTrips = createAsyncThunk<TripType[], void, {}>(
       if (isHttpError && err.status === HttpCode.UNAUTHORIZED) {
         dispatch(signOut());
       }
-      return rejectWithValue(ExceptionMessage.UNKNOWN_ERROR);
+      return rejectWithValue('Unauthorised');
     }
   },
 );

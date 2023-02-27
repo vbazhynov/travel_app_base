@@ -1,4 +1,5 @@
 import { createReducer, isAnyOf } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import { signIn, signUp, loadCurrentUser } from './actions';
 
 export type User = {
@@ -48,6 +49,8 @@ const reducer = createReducer(initialState, builder => {
   builder.addMatcher(
     isAnyOf(signIn.rejected, signUp.rejected, loadCurrentUser.rejected),
     (state, action) => {
+      toast.error(action.error.message);
+
       state.status = 'failed';
     },
   );

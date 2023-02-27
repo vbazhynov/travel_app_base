@@ -1,9 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  ExceptionMessage,
-  HttpCode,
-  HttpError,
-} from '../../common/enums/enums';
+import { HttpCode, HttpError } from '../../common/enums/enums';
 import {
   getAllBookings,
   addBooking,
@@ -52,7 +48,7 @@ const loadBookings = createAsyncThunk<BookingType[]>(
       if (isHttpError && err.status === HttpCode.UNAUTHORIZED) {
         dispatch(signOut());
       }
-      return rejectWithValue(ExceptionMessage.UNKNOWN_ERROR);
+      return rejectWithValue('Unauthorised');
     }
   },
 );

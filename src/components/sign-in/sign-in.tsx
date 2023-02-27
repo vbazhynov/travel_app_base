@@ -25,7 +25,7 @@ const SignIn: React.FC = () => {
   const notifyPasswordError = () =>
     toast.error('Password must be 3 to 20 symbols', {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -33,26 +33,9 @@ const SignIn: React.FC = () => {
       progress: undefined,
     });
 
-  const notifyLoginFailed = () =>
-    toast.error(
-      'User not found, please check your login and password or Sign Up',
-      {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      },
-    );
-
   useEffect(() => {
     if (status === 'succeeded' && hasToken) {
       navigate(AppRoute.MAIN);
-    }
-    if (status === 'failed') {
-      notifyLoginFailed();
     }
   }, [navigate, status, hasToken]);
 
