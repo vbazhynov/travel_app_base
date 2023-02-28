@@ -1,4 +1,4 @@
-import { AppRoute } from '../../enums/routes/route-enum';
+import { AppRoute } from '../../common/enums/app/app-route.enum';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from '../common/Layout/layout';
 import { Main } from '../main/main';
@@ -10,14 +10,18 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  // const dispatch = useAppDispatch();
+
   return (
     <>
+      <ToastContainer />
       <Routes>
         <Route path={AppRoute.ROOT} element={<Layout />}>
           <Route index element={<Main />} />
           <Route path={AppRoute.ANY} element={<Main />} />
-          <Route path={AppRoute.SIGN_IN} element={<SignIn />} />
           <Route path={AppRoute.SIGN_UP} element={<SignUp />} />
+          <Route path={AppRoute.SIGN_IN} element={<SignIn />} />
+          <Route path={AppRoute.MAIN} element={<Main />} />
           <Route path={AppRoute.TRIP_$ID} element={<Trip />} />
           <Route path={AppRoute.BOOKINGS} element={<Booking />} />
         </Route>

@@ -1,4 +1,7 @@
 .footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   padding: 30px 20px;
   color: var(--color-white);
   text-align: center;
