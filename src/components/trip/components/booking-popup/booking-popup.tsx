@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '../../../../common/hooks/hooks';
 import { AddBookingType } from '../../../../store/booking/actions';
 import { bookingActionCreator } from '../../../../store/actions';
+import { BookingGuestCount } from '../../../../common/constants/constants';
 
 type PopupType = {
   isOpen: boolean;
